@@ -19,6 +19,7 @@ import { LaLigaTeamService } from '../team/laliga-team.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { ApiService } from '../api/api.service';
 import { NewsApi } from 'src/api/api.interface';
+import { LaLigaNews } from './laliga-news.model';
 
 @Controller('laliga/news')
 @ApiTags('LaLiga News')
@@ -70,6 +71,7 @@ export class LaLigaNewsController {
   @ApiResponse({
     status: 200,
     description: 'The news with the specified ID',
+    type: LaLigaNews,
   })
   @ApiResponse({ status: 404, description: 'News not found' })
   getNewsById(@Param('newsId') newsId: string) {
@@ -81,10 +83,11 @@ export class LaLigaNewsController {
   @ApiQuery({ name: 'teamId', description: 'Team ID', type: Number })
   @ApiResponse({
     status: 200,
-    description: 'News matching the search criteria',
+    description: 'Laliga News matching the search team criteria',
+    type: [LaLigaNews],
   })
   @ApiResponse({ status: 404, description: 'Team not found' })
-  async searchNews(@Query('teamId') teamId: number) {
+  async searchNews(@Query('teamId') teamId: number): Promise<LaLigaNews[]> {
     try {
       const team = await this.teamService.getLaligaTeamById(teamId);
       const teamName = team ? team.teamName : null;
