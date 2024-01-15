@@ -1,0 +1,15 @@
+{
+  "id": "la-liga-dev-api-environment-basalt",
+  "name": "LaLiga Dev Environments",
+  "values": [
+    {
+      "key": "LALIGA_API_ENDPOINT",
+      "value": "http://localhost:3001",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2024-01-15T00:00:00.000Z",
+  "_postman_exported_using": "Postman/8.17.1"
+}
+

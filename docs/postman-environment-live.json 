@@ -1,0 +1,14 @@
+{
+  "id": "la-liga-live-api-environment-basalt",
+  "name": "LaLiga Live Environments",
+  "values": [
+    {
+      "key": "LALIGA_API_ENDPOINT",
+      "value": "https://48i6nvanmt.eu-west-2.awsapprunner.com",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2024-01-15T00:00:00.000Z",
+  "_postman_exported_using": "Postman/8.17.1"
+}

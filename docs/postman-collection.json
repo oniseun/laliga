@@ -1,0 +1,112 @@
+{
+    "info": {
+      "_postman_id": "la-liga-api-collection-basalt",
+      "name": "LaLiga API",
+      "description": "Collection of LaLiga API requests",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Get LaLiga Teams",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "accept",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "{{LALIGA_API_ENDPOINT}}/laliga/teams",
+            "host": [
+              "{{LALIGA_API_ENDPOINT}}"
+            ],
+            "path": [
+              "laliga",
+              "teams"
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get LaLiga Team by Team ID",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "accept",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "{{LALIGA_API_ENDPOINT}}/laliga/team/3586",
+            "host": [
+              "{{LALIGA_API_ENDPOINT}}"
+            ],
+            "path": [
+              "laliga",
+              "team",
+              "3586"
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get LaLiga Team Standing",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "accept",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "{{LALIGA_API_ENDPOINT}}/laliga/standings/3586",
+            "host": [
+              "{{LALIGA_API_ENDPOINT}}"
+            ],
+            "path": [
+              "laliga",
+              "standings",
+              "3586"
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get LaLiga Team News",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "accept",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "{{LALIGA_API_ENDPOINT}}/laliga/news/search?teamId=4009",
+            "host": [
+              "{{LALIGA_API_ENDPOINT}}"
+            ],
+            "path": [
+              "laliga",
+              "news",
+              "search"
+            ],
+            "query": [
+              {
+                "key": "teamId",
+                "value": "4009"
+              }
+            ]
+          }
+        },
+        "response": []
+      }
+    ]
+  }
+  
