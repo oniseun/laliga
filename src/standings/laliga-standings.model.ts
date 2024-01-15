@@ -25,7 +25,7 @@ export class LaLigaStandings extends Document {
   points: number;
 
   @Prop({ type: Number, ref: 'LaligaTeam', unique: true })
-  teamId: number; // assuming you're using ObjectId as the type for teamId
+  teamId: number;
 }
 
 export const LaLigaStandingsSchema =

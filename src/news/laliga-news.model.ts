@@ -3,7 +3,10 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class LaLigaNews extends Document {
-  @Prop()
+  @Prop({ unique: true })
+  newsId: string;
+
+  @Prop({ unique: true })
   url: string;
 
   @Prop()

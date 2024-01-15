@@ -1,19 +1,12 @@
 import {
   Controller,
   Get,
-  Param,
   Query,
   NotFoundException,
   Logger,
 } from '@nestjs/common';
 
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { LaLigaNewsService } from './laliga-news.service';
 import { LaLigaTeamService } from '../team/laliga-team.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -39,15 +32,15 @@ export class LaLigaNewsController {
     }
   }
 
-  @Cron(CronExpression.EVERY_30_MINUTES_BETWEEN_9AM_AND_5PM)
+  @Cron(CronExpression.EVERY_2_HOURS)
   async createNews() {
     try {
       // Fetch standings data from the API
       this.logger.log('Fetching la liga news from source..');
       const newsData: NewsApi[] = await this.apiService.getLaLigaNews();
       this.logger.log('saving in db..');
-      await this.newsService.createManyNews(newsData);
-      this.logger.log('Emptying news database');
+      const result = await this.newsService.createManyNews(newsData);
+      this.logger.log(`${result} news items saved successfully.`);
     } catch (error) {
       // Handle errors
       this.logger.error('error fetching news from source', error);
@@ -64,18 +57,6 @@ export class LaLigaNewsController {
       // Handle errors
       this.logger.error('error clearing news databse', error);
     }
-  }
-  @Get(':newsId')
-  @ApiOperation({ summary: 'Get news by ID' })
-  @ApiParam({ name: 'newsId', description: 'News ID', type: String })
-  @ApiResponse({
-    status: 200,
-    description: 'The news with the specified ID',
-    type: LaLigaNews,
-  })
-  @ApiResponse({ status: 404, description: 'News not found' })
-  getNewsById(@Param('newsId') newsId: string) {
-    return this.newsService.getNewsById(newsId);
   }
 
   @Get('search')

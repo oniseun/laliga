@@ -29,6 +29,12 @@ async function bootstrap() {
   const httpPort =
     parseInt(app.get<ConfigService>(ConfigService).get<string>('APP_PORT')) ||
     3000;
-  await app.listen(httpPort);
+  const appStart = await app.listen(httpPort);
+
+  if (appStart) {
+    console.log(
+      `HTTP Application is running on: http://localhost:${httpPort}/swagger`,
+    );
+  }
 }
 bootstrap();

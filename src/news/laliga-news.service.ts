@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as md5 from 'md5';
@@ -22,29 +22,23 @@ export class LaLigaNewsService {
     const createdNews = new this.newsModel(news);
     return createdNews.save();
   }
-  async createManyNews(newsArray: NewsApi[]): Promise<LaLigaNews[]> {
-    const newsWithIds = newsArray.map((news) => ({
-      ...news,
-      id: md5(news.url), // Generate unique ID using MD5 hash
+  async createManyNews(newsArray: NewsApi[]): Promise<number> {
+    const writeOperations = newsArray.map((news) => ({
+      updateOne: {
+        filter: { newsId: md5(news.url) },
+        update: { $setOnInsert: { ...news, newsId: md5(news.url) } },
+        upsert: true,
+      },
     }));
 
-    const createdNews = await this.newsModel.create(newsWithIds);
+    const result = await this.newsModel.bulkWrite(writeOperations, {
+      ordered: false,
+    });
 
     // Clear the cache since the data has changed
     await this.cacheManager.reset();
 
-    return createdNews;
-  }
-  async getNews(): Promise<LaLigaNews[]> {
-    return this.newsModel.find().exec();
-  }
-
-  async getNewsById(newsId: string): Promise<LaLigaNews> {
-    const news = await this.newsModel.findById(newsId).exec();
-    if (!news) {
-      throw new NotFoundException(`LaLigaNews with ID ${newsId} not found`);
-    }
-    return news;
+    return result.upsertedCount;
   }
 
   async searchNews(query: string): Promise<LaLigaNews[]> {
