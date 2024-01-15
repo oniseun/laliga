@@ -6,6 +6,14 @@ import {
   NotFoundException,
   Logger,
 } from '@nestjs/common';
+
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { LaLigaNewsService } from './laliga-news.service';
 import { LaLigaTeamService } from '../team/laliga-team.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -13,6 +21,7 @@ import { ApiService } from '../api/api.service';
 import { NewsApi } from 'src/api/api.interface';
 
 @Controller('laliga/news')
+@ApiTags('LaLiga News')
 export class LaLigaNewsController {
   private readonly logger = new Logger(LaLigaNewsController.name);
   constructor(
@@ -55,13 +64,26 @@ export class LaLigaNewsController {
       this.logger.error('error clearing news databse', error);
     }
   }
-
   @Get(':newsId')
+  @ApiOperation({ summary: 'Get news by ID' })
+  @ApiParam({ name: 'newsId', description: 'News ID', type: String })
+  @ApiResponse({
+    status: 200,
+    description: 'The news with the specified ID',
+  })
+  @ApiResponse({ status: 404, description: 'News not found' })
   getNewsById(@Param('newsId') newsId: string) {
     return this.newsService.getNewsById(newsId);
   }
 
   @Get('search')
+  @ApiOperation({ summary: 'Search news by teamId' })
+  @ApiQuery({ name: 'teamId', description: 'Team ID', type: Number })
+  @ApiResponse({
+    status: 200,
+    description: 'News matching the search criteria',
+  })
+  @ApiResponse({ status: 404, description: 'Team not found' })
   async searchNews(@Query('teamId') teamId: number) {
     try {
       const team = await this.teamService.getLaligaTeamById(teamId);
