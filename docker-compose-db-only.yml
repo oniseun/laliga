@@ -8,7 +8,7 @@ services:
       - "6379:6379"
     environment:
       - REDIS_PASSWORD=password
-      - REDIS_USER=test
+      - REDIS_USER=default
     networks:
       laliga-network:
         aliases:
