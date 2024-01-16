@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+  redis:
+    container_name: laliga-redis
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      laliga-network:
+        aliases:
+          - laliga-redis.local
+  redis-commander:
+    container_name: laliga-redis-commander
+    hostname: redis-commander-host
+    image: rediscommander/redis-commander:latest
+    ports:
+        - "8081:8081"
+    links:
+        - redis
+    environment:
+      - REDIS_HOSTS=redis
+    networks:
+      laliga-network:
+        aliases:
+          - laliga-redis-commander.local
+  mongodb:
+    container_name: laliga-mongodb
+    image: mongo:latest
+    ports:
+      - "127.0.0.1:27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_REPLICA_HOST: mongodb
+      MONGO_REPLICA_PORT: 27017
+    networks:
+      laliga-network:
+        aliases:
+          - laliga-mongodb.local
+
+
+networks:
+    laliga-network:
+      driver: bridge
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
