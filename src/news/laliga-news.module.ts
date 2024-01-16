@@ -6,6 +6,7 @@ import { LaLigaNewsService } from './laliga-news.service';
 import { ApiModule } from '../api/api.module';
 import { LaLigaTeamService } from '../team/laliga-team.service';
 import { LaLigaTeamSchema } from '../team/laliga-team.model';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { LaLigaTeamSchema } from '../team/laliga-team.model';
       { name: 'LaLigaTeam', schema: LaLigaTeamSchema },
     ]),
     ApiModule,
+    CacheModule.register(),
   ],
   controllers: [LaLigaNewsController],
   providers: [LaLigaNewsService, LaLigaTeamService],
