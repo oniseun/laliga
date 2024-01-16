@@ -22,10 +22,10 @@ The API is built using NestJS and incorporates the following technologies:
 
 ### Live Environment
 
-The application is live on AWS. Access the following:
+The application is live on AWS. Access with the following link:
 
-- API (aws): [https://xxx.eu-west-2.awsapprunner.com](https://xxx.eu-west-2.awsapprunner.com)
-- Swagger UI (aws): [https://xxx.eu-west-2.awsapprunner.com/swagger](https://xxx.eu-west-2.awsapprunner.com/swagger)
+- API (aws): [https://ievtxnb47v.eu-west-2.awsapprunner.com](https://ievtxnb47v.eu-west-2.awsapprunner.com)
+- Swagger UI (aws): [https://ievtxnb47v.eu-west-2.awsapprunner.com/swagger](https://ievtxnb47v.eu-west-2.awsapprunner.com/swagger)
 
 ### Docker Environment (Recommended)
 
@@ -69,4 +69,4 @@ You can easily test through the Swagger UI. Alternatively, import the Postman co
 Avaailable on:
 
 - Swagger UI (local): [http://localhost:3001/swagger](http://localhost:3001/swagger)
-- Swagger UI (aws): [https://xxx.eu-west-2.awsapprunner.com/swagger](https://xxx.eu-west-2.awsapprunner.com/swagger)
+- Swagger UI (aws): [https://ievtxnb47v.eu-west-2.awsapprunner.com/swagger](https://ievtxnb47v.eu-west-2.awsapprunner.com/swagger)
