@@ -19,10 +19,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         store: redisStore,
-        host: configService.get('REDIS_HOST'),
-        username: configService.get('REDIS_USER'),
-        password: configService.get('REDIS_PASSWORD'),
-        port: parseInt(configService.get('REDIS_PORT'), 10),
+        url: `redis://${configService.get('REDIS_USER')}:${encodeURIComponent(configService.get('REDIS_PASSWORD'))}@${configService.get('REDIS_HOST')}:${parseInt(configService.get('REDIS_PORT'), 10)}`,
         ttl: parseInt(configService.get('REDIS_TTL'), 10) * 1000,
       }),
       inject: [ConfigService],
