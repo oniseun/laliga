@@ -12,7 +12,7 @@ export class LaLigaNewsService {
   private readonly cacheExpireTime = 1000 * 60 * 30; // expire in 30 minutes when the next cron runs
   constructor(
     @InjectModel('LaLigaNews') private readonly newsModel: Model<LaLigaNews>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
 
   async createNews(news: LaLigaNews): Promise<LaLigaNews> {

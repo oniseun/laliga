@@ -17,12 +17,15 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
     ScheduleModule.forRoot(),
     CacheModule.registerAsync({
+      isGlobal: true,
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         store: redisStore,
+        socket: {
+          host: configService.get('REDIS_HOST'),
+          port: parseInt(configService.get('REDIS_PORT'), 10),
+        },
         ttl: parseInt(configService.get('REDIS_TTL'), 10) * 1000,
-        host: configService.get('REDIS_HOST') ?? 'localhost',
-        port: parseInt(configService.get('REDIS_PORT'), 10) ?? 6379,
       }),
       inject: [ConfigService],
     }),

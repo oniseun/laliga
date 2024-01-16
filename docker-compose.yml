@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   redis:
-    container_name: program-redis
+    container_name: laliga-redis
     image: redis:7-alpine
     restart: always
     ports:
@@ -9,11 +9,11 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     networks:
-      program-network:
+      laliga-network:
         aliases:
-          - redis.local
+          - laliga-redis.local
   redis-commander:
-    container_name: program-redis-commander
+    container_name: laliga-redis-commander
     hostname: redis-commander-host
     image: rediscommander/redis-commander:latest
     ports:
@@ -23,11 +23,11 @@ services:
     environment:
       - REDIS_HOSTS=redis
     networks:
-      program-network:
+      laliga-network:
         aliases:
-          - redis-commander.local
+          - laliga-redis-commander.local
   mongodb:
-    container_name: program-mongodb
+    container_name: laliga-mongodb
     image: mongo:latest
     ports:
       - "127.0.0.1:27018:27017"
@@ -37,13 +37,43 @@ services:
       MONGO_REPLICA_HOST: mongodb
       MONGO_REPLICA_PORT: 27017
     networks:
-      program-network:
+      laliga-network:
         aliases:
-          - mongodb.local
+          - laliga-mongodb.local
 
+  backend:
+    container_name: laliga-backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+      - mongodb
+    links:
+      - redis
+      - mongodb
+    environment:
+      - APP_NAME=la-liga
+      - APP_PORT=3001
+      - REDIS_HOST=laliga-redis
+      - REDIS_PORT=6379
+      - REDIS_TTL=1000
+      - MONGODB_URI=mongodb://test:password@laliga-mongodb:27017
+      - MONGODB_NAME=la-liga
+      - RAPID_API_KEY=${RAPID_API_KEY}
+      - LIVESCORE_STANDINGS_HOST=livescore6.p.rapidapi.com
+      - LIVESCORE_STANDINGS_ENDPOINT=https://livescore6.p.rapidapi.com/leagues/v2/get-table
+      - LALIGA_NEWS_ENDPOINT=https://football-news-aggregator-live.p.rapidapi.com/news/fourfourtwo/laliga
+      - LALIGA_NEWS_HOST=football-news-aggregator-live.p.rapidapi.com
+    networks:
+      laliga-network:
+        aliases:
+          - laliga-backend.local
 
 networks:
-    program-network:
+    laliga-network:
       driver: bridge
 
 

@@ -4,7 +4,6 @@ import { LaLigaNewsController } from './laliga-news.controller';
 import { LaLigaNewsSchema } from './laliga-news.model';
 import { LaLigaNewsService } from './laliga-news.service';
 import { ApiModule } from '../api/api.module';
-import { CacheModule } from '@nestjs/cache-manager';
 import { LaLigaTeamService } from '../team/laliga-team.service';
 import { LaLigaTeamSchema } from '../team/laliga-team.model';
 
@@ -15,7 +14,6 @@ import { LaLigaTeamSchema } from '../team/laliga-team.model';
       { name: 'LaLigaTeam', schema: LaLigaTeamSchema },
     ]),
     ApiModule,
-    CacheModule.register(),
   ],
   controllers: [LaLigaNewsController],
   providers: [LaLigaNewsService, LaLigaTeamService],
