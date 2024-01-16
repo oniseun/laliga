@@ -40,8 +40,8 @@ The API is built using NestJS and incorporates the following technologies:
 
 Head to the following:
 
-- [API: http://localhost:3001](http://localhost:3001)
-- [Swagger UI: http://localhost:3001/swagger](http://localhost:3001/swagger)
+- API:  [http://localhost:3001](http://localhost:3001)
+- Swagger UI: [http://localhost:3001/swagger](http://localhost:3001/swagger)
 
 To stop the app, run `npm run stop:docker:app`.
 
