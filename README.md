@@ -18,12 +18,19 @@ The API is built using NestJS and incorporates the following technologies:
 - **mongodb**: Stores news, standings, and team names.
 - **redis**: Caches news on demand.
 
-## Installation
+## Installation and usage
+
+### Live Environment
+
+The application is live on AWS. Access the following:
+
+- API (aws): [https://xxx.eu-west-2.awsapprunner.com](https://xxx.eu-west-2.awsapprunner.com)
+- Swagger UI (aws): [https://xxx.eu-west-2.awsapprunner.com/swagger](https://xxx.eu-west-2.awsapprunner.com/swagger)
 
 ### Docker Environment (Recommended)
 
 1. Run `export RAPID_API_KEY=your-rapid-api-key`.
-2. Run `npm run start:docker:app` to start the application and all dependencies in Docker.
+2. Run `npm run start:docker:app` to start the application and all dependencies (redis, mongodb) in Docker.
 
 Head to the following:
 
@@ -36,10 +43,12 @@ To stop the app, run `npm run stop:docker:app`.
 
 1. Use `nvm use` to set the appropriate environment.
 2. Run `npm run setup:dev` to set up environment variables.
-3. Run `npm install`.
+3. Run `npm install` to install dependencies
 4. Run `npm run start:docker:db` to start the database in the Docker environment background.
 5. Edit the `.env` file, replacing `RAPID_API_KEY` with your Rapid API key.
 6. Run `npm run start:dev` to start the application.
+
+Database:
 
 - To view redis commander head to [http://localhost:8081](http://localhost:8081)
 - To stop the database in Docker, run `npm run stop:docker:db`. 
@@ -50,12 +59,6 @@ To stop the app, run `npm run stop:docker:app`.
 
 Run unit tests with `npm run test`.
 
-## Live Deployment
-
-The application is live on AWS. Access the following:
-
-- API (aws): [https://xxx.eu-west-2.awsapprunner.com](https://xxx.eu-west-2.awsapprunner.com)
-- Swagger UI (aws): [https://xxx.eu-west-2.awsapprunner.com/swagger](https://xxx.eu-west-2.awsapprunner.com/swagger)
 
 ## Postman
 
