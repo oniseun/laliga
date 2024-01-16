@@ -4,7 +4,7 @@
   "values": [
     {
       "key": "LALIGA_API_ENDPOINT",
-      "value": "https://48i6nvanmt.eu-west-2.awsapprunner.com",
+      "value": "https://xxx.eu-west-2.awsapprunner.com",
       "enabled": true
     }
   ],

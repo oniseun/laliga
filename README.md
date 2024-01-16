@@ -20,6 +20,18 @@ The API is built using NestJS and incorporates the following technologies:
 
 ## Installation
 
+### Docker Environment (Recommended)
+
+1. Run `export RAPID_API_KEY=your-rapid-api-key`.
+2. Run `npm run start:docker:app` to start the application and all dependencies in Docker.
+
+Head to the following:
+
+- API:  [http://localhost:3001](http://localhost:3001)
+- Swagger UI: [http://localhost:3001/swagger](http://localhost:3001/swagger)
+
+To stop the app, run `npm run stop:docker:app`.
+
 ### Development Environment
 
 1. Use `nvm use` to set the appropriate environment.
@@ -33,17 +45,6 @@ The API is built using NestJS and incorporates the following technologies:
 - To stop the database in Docker, run `npm run stop:docker:db`. 
 - To view the database logs, run `npm run logs:docker:db`.
 
-### Docker Environment (Recommended)
-
-1. Run `export RAPID_API_KEY=your-rapid-api-key`.
-2. Run `npm run start:docker:app` to start the application and all dependencies in Docker.
-
-Head to the following:
-
-- API:  [http://localhost:3001](http://localhost:3001)
-- Swagger UI: [http://localhost:3001/swagger](http://localhost:3001/swagger)
-
-To stop the app, run `npm run stop:docker:app`.
 
 ## Testing
 
@@ -53,9 +54,16 @@ Run unit tests with `npm run test`.
 
 The application is live on AWS. Access the following:
 
-- [API (aws): https://48i6nvanmt.eu-west-2.awsapprunner.com](https://48i6nvanmt.eu-west-2.awsapprunner.com)
-- [Swagger Docs (aws): https://48i6nvanmt.eu-west-2.awsapprunner.com/swagger ](https://48i6nvanmt.eu-west-2.awsapprunner.com/swagger)
+- API (aws): [https://xxx.eu-west-2.awsapprunner.com](https://xxx.eu-west-2.awsapprunner.com)
+- Swagger UI (aws): [https://xxx.eu-west-2.awsapprunner.com/swagger](https://xxx.eu-west-2.awsapprunner.com/swagger)
 
 ## Postman
 
 You can easily test through the Swagger UI. Alternatively, import the Postman configurations from the `/docs` folder, which contains the Postman collections and environments for both development and live (AWS).
+
+## Documentation 
+
+Avaailable on:
+
+- Swagger UI (local): [http://localhost:3001/swagger](http://localhost:3001/swagger)
+- Swagger UI (aws): [https://xxx.eu-west-2.awsapprunner.com/swagger](https://xxx.eu-west-2.awsapprunner.com/swagger)
