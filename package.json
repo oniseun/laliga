@@ -9,6 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "setup:dev": "cp .env.copy .env",
     "start:docker:db": "docker-compose -f docker-compose-db-only.yml up -d",
     "logs:docker:db": "docker-compose -f docker-compose-db-only.yml logs -f",
     "stop:docker:db": "docker-compose -f docker-compose-db-only.yml down",
