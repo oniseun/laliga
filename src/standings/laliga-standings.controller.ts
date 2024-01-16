@@ -7,29 +7,35 @@ import { StandingsApi } from '../api/api.interface';
 import { LaLigaStandings } from './laliga-standings.model';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 
+// Controller for handling LaLiga standings-related endpoints
 @Controller('laliga/standings')
 @ApiTags('LaLiga Standings')
 export class LaLigaStandingsController {
   private readonly logger = new Logger(LaLigaStandingsController.name);
+
+  // Constructor with dependency injection for required services
   constructor(
     private readonly standingsService: LaLigaStandingsService,
     private readonly teamService: LaLigaTeamService,
     private readonly apiService: ApiService,
   ) {}
 
+  // Method executed when the module is initialized
   async onModuleInit() {
+    // Check if there are no existing standings records in the database
     const standingsCount = await this.standingsService.recordCount();
     if (standingsCount === 0) {
-      // Schedule the cron job when the module is initialized
+      // Schedule the cron job to create standings when the module is initialized
       this.createLaLigaStandings();
     }
   }
 
+  // Cron job to fetch and save LaLiga standings from the source every 30 minutes between 9 AM and 5 PM
   @Cron(CronExpression.EVERY_30_MINUTES_BETWEEN_9AM_AND_5PM)
   async createLaLigaStandings() {
     try {
       // Fetch standings data from the API
-      this.logger.log('Fetching la liga standings from source..');
+      this.logger.log('Fetching LaLiga standings from source..');
       const standingsData: StandingsApi[] =
         await this.apiService.getLaLigaStandings();
       this.logger.log('Done fetching data from source');
@@ -51,10 +57,12 @@ export class LaLigaStandingsController {
       await this.standingsService.createLaLigaStandings(standingsData);
       this.logger.log('Done creating Standings in bulk.');
     } catch (error) {
-      // Handle errors
-      this.logger.error('error running cron schedule', error);
+      // Handle errors during the cron job
+      this.logger.error('Error running cron schedule', error);
     }
   }
+
+  // Endpoint to get LaLiga standings by teamId
   @Get(':teamId')
   @ApiOperation({ summary: 'Get LaLiga Standings by Team ID' })
   @ApiParam({ name: 'teamId', description: 'Team ID', type: Number })
@@ -64,7 +72,6 @@ export class LaLigaStandingsController {
     type: LaLigaStandings,
   })
   @ApiResponse({ status: 404, description: 'Team not found' })
-  @Get(':teamId')
   getLaLigaStanding(@Param('teamId') teamId: number): Promise<LaLigaStandings> {
     return this.standingsService.getLaLigaStanding(teamId);
   }

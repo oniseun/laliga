@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { redisStore } from 'cache-manager-redis-yet';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -37,18 +35,9 @@ import { ScheduleModule } from '@nestjs/schedule';
       }),
       inject: [ConfigService],
     }),
-    // CacheModule.register<RedisClientOptions>({
-    //   store: redisStore,
-    //   socket: {
-    //     host: process.env.REDIS_HOST ?? 'localhost',
-    //     port: parseInt(process.env.REDIS_PORT ?? '6379'),
-    //   },
-    // }),
     NewsModule,
     LaLigaStandingsModule,
     LaligaTeamModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
